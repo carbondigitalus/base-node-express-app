@@ -1,0 +1,166 @@
+extends base
+
+block content 
+  main.main(style="width: 50%; margin-left: 50%; transform: translatex(-50%);")
+    .grid
+      .grid__column.grid__column--is-twelve-columns
+        #banner.everpresent-content
+          h1.everpresent-content__heading Plaid Quickstart
+          p#intro.everpresent-content__subheading
+            | An example application that outlines an end-to-end integration with Plaid
+          p#steps.everpresent-content__subheading
+            | Success! You just created an Item by linking your account.
+        #container.initial-view
+          p.initial-view__description
+            | Click the button below to open a list of Institutions. After you select one, you&rsquo;ll be guided through an authentication process. Upon completion, a public_token will be passed back to the server and exchanged for access_token.
+          button#link-btn.button.button--is-primary(disabled='') Connect with Plaid
+          .loading-indicator
+        #app.connected-view
+          .item-overview
+            .item-overview__column
+              h3.item-overview__heading item_id
+              p#item_id.item-overview__id san.asjsansakjsakjasjksajkas
+            .item-overview__column
+              h3.item-overview__heading access_token
+              p#access_token.item-overview__id &bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;hsakjsl
+            div(style='clear: both')
+          p
+            | Now that you have an access_token you can make all of the following API requests:
+          .box
+            h3.box__heading Products
+            // Auth
+            .item-data-row
+              .item-data-row__left
+                .item-data-row__request-type post
+              .item-data-row__center
+                .item-data-row__nicename Auth
+                .item-data-row__endpoint /auth/get
+                .item-data-row__description Retrieve account and routing numbers for checking and savings accounts.
+              .item-data-row__right
+                button#get-auth-btn.button.button--is-small.button--is-default.button--is-full-width Send request
+              .item-data-row__response
+                table
+                  tbody#get-auth-data
+            // Transactions
+            .item-data-row
+              .item-data-row__left
+                .item-data-row__request-type post
+              .item-data-row__center
+                .item-data-row__nicename Transactions
+                .item-data-row__endpoint /transactions/get
+                .item-data-row__description Retrieve transactions for credit and depository accounts.
+              .item-data-row__right
+                button#get-transactions-btn.button.button--is-small.button--is-default.button--is-full-width Send request
+              .item-data-row__response
+                table
+                  tbody#get-transactions-data
+            // Identity
+            .item-data-row
+              .item-data-row__left
+                .item-data-row__request-type post
+              .item-data-row__center
+                .item-data-row__nicename Identity
+                .item-data-row__endpoint /identity/get
+                .item-data-row__description
+                  | Retrieve Identity information on file with the bank. Reduce fraud by comparing user-submitted data to validate identity.
+              .item-data-row__right
+                button#get-identity-btn.button.button--is-small.button--is-default.button--is-full-width Send request
+              .item-data-row__response
+                table
+                  tbody#get-identity-data
+            // Balance
+            .item-data-row
+              .item-data-row__left
+                .item-data-row__request-type post
+              .item-data-row__center
+                .item-data-row__nicename Balance
+                .item-data-row__endpoint /accounts/balance/get
+                .item-data-row__description Check balances in real time to prevent non-sufficient funds fees.
+              .item-data-row__right
+                button#get-balance-btn.button.button--is-small.button--is-default.button--is-full-width Send request
+              .item-data-row__response
+                table
+                  tbody#get-balance-data
+            // Assets (hidden unless 'assets' is included in the product list)
+            #assets.item-data-row(style='display:none;')
+              .item-data-row__left
+                .item-data-row__request-type post
+              .item-data-row__center
+                .item-data-row__nicename Assets
+                .item-data-row__endpoint /asset_report/*
+                .item-data-row__description Create a point-in-time snapshot of a user&apos;s assets.
+              .item-data-row__right
+                button#get-assets-btn.button.button--is-small.button--is-default.button--is-full-width Send request
+                a#download-assets-pdf-btn.button.button--is-small.button--is-primary.button--is-full-width(style='display: none; margin: 10px 0px;') Download as PDF
+              .item-data-row__response
+                table
+                  tbody#get-assets-data
+            // Holdings
+            .item-data-row
+              .item-data-row__left
+                .item-data-row__request-type post
+              .item-data-row__center
+                .item-data-row__nicename Holdings
+                .item-data-row__endpoint /investments/holdings/get
+                .item-data-row__description
+                  | Retrieve investment holdings on file with the bank, brokerage, or investment institution. Analyze over-exposure to market segments.
+              .item-data-row__right
+                button#get-holdings-btn.button.button--is-small.button--is-default.button--is-full-width Send request
+              .item-data-row__response
+                table
+                  tbody#get-holdings-data
+            // Investment Transactions
+            .item-data-row
+              .item-data-row__left
+                .item-data-row__request-type post
+              .item-data-row__center
+                .item-data-row__nicename Investment Transactions
+                .item-data-row__endpoint /investments/transactions/get
+                .item-data-row__description Retrieve investment transactions to analyze cash flow and trading performance.
+              .item-data-row__right
+                button#get-investment-transactions-btn.button.button--is-small.button--is-default.button--is-full-width Send request
+              .item-data-row__response
+                table
+                  tbody#get-investment-transactions-data
+            // UK Payment Initiation (hidden unless 'payment_initiation' is included in the product list)
+            .payment_initiation.item-data-row(style='display:none;')
+              .item-data-row__left
+                .item-data-row__request-type post
+              .item-data-row__center
+                .item-data-row__nicename Payment Initiation
+                .item-data-row__endpoint /payment_initiation/payment/get
+                .item-data-row__description Retrieve payment initiation status for the payment you just initiated.
+              .item-data-row__right
+                button#get-payment-btn.button.button--is-small.button--is-default.button--is-full-width Send request
+              .item-data-row__response
+                table
+                  tbody#get-payment-data
+          .box
+            h3.box__heading Item management
+            .item-data-row
+              .item-data-row__left
+                .item-data-row__request-type post
+              .item-data-row__center
+                .item-data-row__endpoint /item/get
+                .item-data-row__description
+                  | Retrieve information about an Item, like the institution, billed products, available products, and webhook information.
+              .item-data-row__right
+                button#get-item-btn.button.button--is-small.button--is-default.button--is-full-width Send request
+              .item-data-row__response
+                table
+                  tbody#get-item-data
+            .item-data-row
+              .item-data-row__left
+                .item-data-row__request-type post
+              .item-data-row__center
+                .item-data-row__endpoint /accounts/get
+                .item-data-row__description Retrieve high-level information about all accounts associated with an Item.
+              .item-data-row__right
+                button#get-accounts-btn.button.button--is-small.button--is-default.button--is-full-width Send request
+              .item-data-row__response
+                table
+                  tbody#get-accounts-data
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js')
+  script(src='https://cdn.plaid.com/link/v2/stable/link-initialize.js')
+  script(src='/js/plaid.js')
+  link(rel='stylesheet' href='https://threads.plaid.com/threads.css')
